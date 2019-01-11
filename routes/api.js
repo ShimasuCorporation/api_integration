@@ -16,7 +16,7 @@ app.use(
     })
 );
 
-//Make transcript API Call - Map Function
+// Make transcript API Call - Map Function - Slower
 // request(encodeURI(transcript_url), (err, response, body) => {
 //     if (err) {
 //         console.error(err);
@@ -27,21 +27,43 @@ app.use(
 //         });
 //         const start_val_array = [];
 //         start_val_array.push(start_vals);
-//         console.log(start_val_array);
 //     };
 // });
 
-//Make transcript API Call - For In Loop
+//Make transcript API Call - For In Loop - Faster
 request(encodeURI(transcript_url), (err, response, body) => {
     if (err) {
         console.error(err);
     } else {
         const stage1 = JSON.parse(body);
+        const start_val_array = [];
         for (let x in stage1) {
-            console.log(`${stage1[x].start}`);
+            start_val_array.push(`${stage1[x].start}`);
         };
+        //Make suggestion API Call
+        request(encodeURI(suggestion_url), (err, response, body) => {
+            if (err) {
+                console.error(err);
+            } else {
+                const stage2 = JSON.parse(body);
+                const name_val_array = [];
+                for (let x in stage2) {
+                    name_val_array.push(`${stage2[x].name}`);
+                };
+                console.log(start_val_array);
+                console.log(name_val_array);
+            };
+        });
+
     };
+
 });
+
+
+
+
+
+
 
 //GET Resquest Handling
 router.get("/get_transcript", (req, res) => {
