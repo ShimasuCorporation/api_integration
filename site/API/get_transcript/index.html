@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Get Transcript API Route - Shimasu</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Get Transcript API Route";
+    var mkdocs_page_input_path = "API/get_transcript.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Shimasu</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Welcome to Shimasu</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">API</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../Introduction/">Introduction</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../get_suggestion/">Get Suggestions API Route</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Get Transcript API Route</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#get-transcript-api-route">Get Transcript API Route</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#example-1">Example 1</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Shimasu</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>API &raquo;</li>
+        
+      
+    
+    <li>Get Transcript API Route</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="get-transcript-api-route">Get Transcript API Route</h1>
+<p>The Get Transcript API Route gets the transcripts of a youtube video passed in as an argument inside the link.</p>
+<pre><code>/api/get_transcript/&lt;youtube_video_id&gt;
+</code></pre>
+
+<p>Replace the <code>&lt;youtube_video_id&gt;</code> with the ID of an actual Youtube Video.</p>
+<h2 id="example-1">Example 1</h2>
+<p>Here is an example of a Youtube Video.</p>
+<p><a href="http://www.youtube.com/watch?feature=player_embedded&v=LVV_93mBfSU
+" target="_blank"><img src="http://img.youtube.com/vi/LVV_93mBfSU/0.jpg" 
+alt="How internet works" width="240" height="180" border="10" /></a></p>
+<p>Its url is <code>https://www.youtube.com/watch?v=LVV_93mBfSU</code> where the id is <code>LVV_93mBfSU</code>. After putting it in the url <code>/api/get_transcript/&lt;youtube_video_id&gt;/</code> we get the following result in json.</p>
+<pre><code class="json">[
+{
+&quot;text&quot;: &quot;[Music]&quot;,
+&quot;start&quot;: 0.89,
+&quot;duration&quot;: 3.15
+},
+{
+&quot;text&quot;: &quot;hi my name is John I lead the search and&quot;,
+&quot;start&quot;: 5.24,
+&quot;duration&quot;: 7.029
+},
+{
+&quot;text&quot;: &quot;she learning teams at Google well I&quot;,
+&quot;start&quot;: 8.46,
+&quot;duration&quot;: 5.969
+},
+{
+&quot;text&quot;: &quot;think it's amazingly inspiring that&quot;,
+&quot;start&quot;: 12.269,
+&quot;duration&quot;: 3.631
+},
+{
+&quot;text&quot;: &quot;people all over the world&quot;,
+&quot;start&quot;: 14.429,
+&quot;duration&quot;: 3.841
+},
+{
+&quot;text&quot;: &quot;I turned to search engines to ask&quot;,
+&quot;start&quot;: 15.9,
+&quot;duration&quot;: 3.9
+},
+{
+&quot;text&quot;: &quot;trivial questions and incredibly&quot;,
+&quot;start&quot;: 18.27,
+&quot;duration&quot;: 3.21
+},
+...
+]
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../get_suggestion/" class="btn btn-neutral" title="Get Suggestions API Route"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../get_suggestion/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "shimasucorp",
+  "version": "1.0.0",
+  "description": "shimasu text matching algorithm + rendering server",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "shimasu",
+    "text",
+    "matching",
+    "algorithm",
+    "nodejs",
+    "render"
+  ],
+  "author": "Alexandre Lo (Chao Heng Lo)",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "request": "^2.88.0"
+  }
+}
