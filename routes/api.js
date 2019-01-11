@@ -38,7 +38,7 @@ request(encodeURI(transcript_url), (err, response, body) => {
         const stage1 = JSON.parse(body);
         const start_val_array = [];
         for (let x in stage1) {
-            start_val_array.push(`${stage1[x].start}`);
+            start_val_array.push(`${stage1[x].text}`);
         };
         //Make suggestion API Call
         request(encodeURI(suggestion_url), (err, response, body) => {
@@ -50,9 +50,10 @@ request(encodeURI(transcript_url), (err, response, body) => {
                 for (let x in stage2) {
                     name_val_array.push(`${stage2[x].name}`);
                 };
-                console.log(start_val_array);
-                console.log(name_val_array);
-            };
+                //Operation Take Place Here
+                const r1 = new Set(name_val_array);
+                const r2 = new Set(start_val_array);
+            }
         });
 
     };
