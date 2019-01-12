@@ -18,7 +18,9 @@ app.use(
     })
 );
 
-//EventEmitter
+////EventEmitter
+
+//API Call -> Suggestion
 const result = new EventEmitter();
 request(encodeURI(suggestion_url), (err, response, body) => {
     const stage1 = JSON.parse(body);
@@ -26,13 +28,11 @@ request(encodeURI(suggestion_url), (err, response, body) => {
     for (let x in stage1) {
         name_val_array.push(`${stage1[x].name}`);
     };
-    // result.data = name_val_array;
     result.data = name_val_array;
     result.emit("up");
 });
 
-
-
+//API Call -> Transctip
 const result2 = new EventEmitter();
 request(encodeURI(transcript_url), (err, response, body) => {
     const stage2 = JSON.parse(body);
@@ -40,7 +40,6 @@ request(encodeURI(transcript_url), (err, response, body) => {
     for (let x in stage2) {
         text_val_array.push(`${stage2[x].text}`);
     };
-    // result2.data = text_val_array;
     result2.data = text_val_array;
     result2.emit("up2");
 });
