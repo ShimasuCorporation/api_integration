@@ -72,7 +72,7 @@ request(encodeURI(suggestion_url), (err, response, body) => {
         name_val_array.push(`${stage2[x].name}`);
     };
 });
-console.log(name_val_array);
+
 //Callback Demo
 // function req(x) {
 //     request(encodeURI(x), (err, response, body) => {
