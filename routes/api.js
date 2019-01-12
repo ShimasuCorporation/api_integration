@@ -3,7 +3,6 @@ const express = require("express");
 const request = require("request");
 const router = express.Router();
 const bodyParser = require("body-parser");
-const rp = require("request-promise");
 EventEmitter = require("events").EventEmitter;
 
 //Set Global Vars.
