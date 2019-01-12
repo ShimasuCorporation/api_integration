@@ -34,19 +34,19 @@ app.use(
 
 //Make transcript API Call - For In Loop - Faster
 
-function transcript_api(x) {
-    request(encodeURI(x), (err, response, body) => {
-        if (err) {
-            console.error(err);
-        } else {
-            const stage1 = JSON.parse(body);
-            const text_val_array = [];
-            for (let x in stage1) {
-                text_val_array.push(`${stage1[x].text}`);
-            };
-        };
-    });
-};
+// function transcript_api(x) {
+//     request(encodeURI(x), (err, response, body) => {
+//         if (err) {
+//             console.error(err);
+//         } else {
+//             const stage1 = JSON.parse(body);
+//             const text_val_array = [];
+//             for (let x in stage1) {
+//                 text_val_array.push(`${stage1[x].text}`);
+//             };
+//         };
+//     });
+// };
 
 
 //Make suggestion API Call
@@ -64,14 +64,14 @@ function transcript_api(x) {
 //     });
 // };
 
-//sss
-request(encodeURI(suggestion_url), (err, response, body) => {
-    const stage2 = JSON.parse(body);
-    const name_val_array = [];
-    for (let x in stage2) {
-        name_val_array.push(`${stage2[x].name}`);
-    };
-});
+//Short Version
+// request(encodeURI(suggestion_url), (err, response, body) => {
+//     const stage2 = JSON.parse(body);
+//     const name_val_array = [];
+//     for (let x in stage2) {
+//         name_val_array.push(`${stage2[x].name}`);
+//     };
+// });
 
 //EventEmitter
 // const body = new EventEmitter();
@@ -83,7 +83,39 @@ request(encodeURI(suggestion_url), (err, response, body) => {
 // body.on("u", () => {
 //     console.log(body.data)
 // });
+const result = new EventEmitter();
+request(encodeURI(suggestion_url), (err, response, body) => {
+    const stage1 = JSON.parse(body);
+    const name_val_array = [];
+    for (let x in stage1) {
+        name_val_array.push(`${stage1[x].name}`);
+    };
+    result.data = name_val_array;
+    result.emit("up");
+});
 
+// result.on("up", () => {
+//     console.log(result.data);
+// });
+
+const result2 = new EventEmitter();
+request(encodeURI(transcript_url), (err, response, body) => {
+    const stage2 = JSON.parse(body);
+    const text_val_array = [];
+    for (let x in stage2) {
+        text_val_array.push(`${stage2[x].text}`);
+    };
+    result2.data = text_val_array;
+    result2.emit("up2");
+});
+
+
+// result2.on("up2", () => {
+//     console.log(result2.data);
+// });
+
+
+//Combine Result
 
 
 //Callback Demo
