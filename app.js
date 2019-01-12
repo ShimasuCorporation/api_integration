@@ -18,6 +18,6 @@ app.use("/api", api);
 app.use("/", home);
 
 //Start the Server
-app.listen(`${port}`, function () {
+app.listen(`${port}`, () => {
     console.log(`Server is listening on port ${port}`);
 });

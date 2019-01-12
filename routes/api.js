@@ -4,6 +4,7 @@ const request = require("request");
 const router = express.Router();
 const bodyParser = require("body-parser");
 const rp = require("request-promise");
+EventEmitter = require("events").EventEmitter;
 
 //Set Global Vars.
 const transcript_url = "https://shimasu.herokuapp.com/api/get_transcript/k3vFX0YrkMY";
@@ -64,7 +65,6 @@ function transcript_api(x) {
 // };
 
 //sss
-
 request(encodeURI(suggestion_url), (err, response, body) => {
     const stage2 = JSON.parse(body);
     const name_val_array = [];
@@ -72,6 +72,19 @@ request(encodeURI(suggestion_url), (err, response, body) => {
         name_val_array.push(`${stage2[x].name}`);
     };
 });
+
+//EventEmitter
+// const body = new EventEmitter();
+// request(encodeURI(suggestion_url), function (error, response, data) {
+//     body.data = data;
+//     body.emit('u');
+// });
+
+// body.on("u", () => {
+//     console.log(body.data)
+// });
+
+
 
 //Callback Demo
 // function req(x) {
@@ -100,8 +113,9 @@ function list(a, b) {
     for (let x in b) {
         r2.push(b[x]);
     };
-    return r1, r2;
+    return [r1, r2]
 };
+
 
 
 
