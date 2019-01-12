@@ -21,3 +21,15 @@ app.use("/", home);
 app.listen(`${port}`, () => {
     console.log(`Server is listening on port ${port}`);
 });
+
+
+// const arr3 = [];
+// for (let index = 0; index < arr1.length; index++) {
+//     for (let index2 = 0; index2 < arr2.length; index2++) {
+//         if (arr1[index] == arr2[index2]) {
+//             arr3.push(arr1[index]);
+//         };
+//     };
+// };
+
+// console.log(arr3);

@@ -53,8 +53,8 @@ request(encodeURI(suggestion_url), (err, response, body) => {
     };
     result3.data = time_val_array;
     result3.emit("up3");
-
 });
+
 
 //Spliting Function
 function spliter(a) {
@@ -66,18 +66,38 @@ function spliter(a) {
     };
     return arr2
 };
-let combine_1;
+
 
 result2.on("up2", () => {
     result.on("up", () => {
-        // console.log(result2.data);
-        // console.log(result.data);
-        combine_1 = spliter(result2.data);
+        let splited = [];
+        splited = spliter(result2.data);
+        let arry_final_1 = [];
+        let arry_final_2 = [];
+        for (let index = 0; index < splited.length; index++) {
+            for (let index2 = 0; index2 < result.data.length; index2++) {
+                if (splited[index] == result.data[index2]) {
+                    arry_final_1.push(result.data[index2]);
+                    arry_final_2.push(splited[index]);
+                };
+            };
+        };
+        // console.log(arry_final_1.length);
+        // console.log(arry_final_2.length);
+        // console.log((new Set(arry_final_1)));
 
+        function removeDuplicateUsingFilter(arr) {
+            let unique_array = arr.filter(function (elem, index, self) {
+                return index == self.indexOf(elem);
+            });
+            return unique_array
+        }
+
+        const as = (removeDuplicateUsingFilter(arry_final_1)).length
+        console.log(as);
     });
 
 });
-
 
 
 //GET Resquest Handling
