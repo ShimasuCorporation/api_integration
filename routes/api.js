@@ -18,6 +18,83 @@ app.use(
     })
 );
 
+//EventEmitter
+const result = new EventEmitter();
+request(encodeURI(suggestion_url), (err, response, body) => {
+    const stage1 = JSON.parse(body);
+    const name_val_array = [];
+    for (let x in stage1) {
+        name_val_array.push(`${stage1[x].name}`);
+    };
+    // result.data = name_val_array;
+    result.data = name_val_array;
+    result.emit("up");
+});
+
+
+
+const result2 = new EventEmitter();
+request(encodeURI(transcript_url), (err, response, body) => {
+    const stage2 = JSON.parse(body);
+    const text_val_array = [];
+    for (let x in stage2) {
+        text_val_array.push(`${stage2[x].text}`);
+    };
+    // result2.data = text_val_array;
+    result2.data = text_val_array;
+    result2.emit("up2");
+});
+
+
+// result2.on("up2", () => {
+//     result.on("up", () => {
+//         // console.log(result2.data);
+//         // console.log(result.data);
+//         console.log(result.data, result2.data);
+//     });
+// });
+
+//Spliting
+function split(a) {
+    let arr1 = [];
+    for (let i = 0; i <= a.length - 1; i++) {
+        arr1.push([a[i]]);
+    }
+    return arr1;
+};
+
+
+//GET Resquest Handling
+router.get("/get_transcript", (req, res) => {
+    res.send("transcript")
+});
+
+router.get("/get_suggestion", (req, res) => {
+    res.send("suggestion");
+});
+
+//Export the Module
+module.exports = router;
+
+
+
+
+//Callback Demo
+// function req(x) {
+//     request(encodeURI(x), (err, response, body) => {
+//         const name_vale_array = [];
+//         for (let x in JSON.parse(body)) {
+//             name_vale_array.push(JSON.parse(body)[x].name);
+//         };
+//         console.log(name_vale_array);
+//     });
+// };
+
+// function sayHi(x) {
+//     console.log(x);
+// };
+// sayHi(req(suggestion_url));
+
 // Make transcript API Call - Map Function - Slower
 // request(encodeURI(transcript_url), (err, response, body) => {
 //     if (err) {
@@ -63,103 +140,3 @@ app.use(
 //         };
 //     });
 // };
-
-//Short Version
-// request(encodeURI(suggestion_url), (err, response, body) => {
-//     const stage2 = JSON.parse(body);
-//     const name_val_array = [];
-//     for (let x in stage2) {
-//         name_val_array.push(`${stage2[x].name}`);
-//     };
-// });
-
-//EventEmitter
-// const body = new EventEmitter();
-// request(encodeURI(suggestion_url), function (error, response, data) {
-//     body.data = data;
-//     body.emit('u');
-// });
-
-// body.on("u", () => {
-//     console.log(body.data)
-// });
-const result = new EventEmitter();
-request(encodeURI(suggestion_url), (err, response, body) => {
-    const stage1 = JSON.parse(body);
-    const name_val_array = [];
-    for (let x in stage1) {
-        name_val_array.push(`${stage1[x].name}`);
-    };
-    result.data = name_val_array;
-    result.emit("up");
-});
-
-// result.on("up", () => {
-//     console.log(result.data);
-// });
-
-const result2 = new EventEmitter();
-request(encodeURI(transcript_url), (err, response, body) => {
-    const stage2 = JSON.parse(body);
-    const text_val_array = [];
-    for (let x in stage2) {
-        text_val_array.push(`${stage2[x].text}`);
-    };
-    result2.data = text_val_array;
-    result2.emit("up2");
-});
-
-
-// result2.on("up2", () => {
-//     console.log(result2.data);
-// });
-
-
-//Combine Result
-
-
-//Callback Demo
-// function req(x) {
-//     request(encodeURI(x), (err, response, body) => {
-//         const name_vale_array = [];
-//         for (let x in JSON.parse(body)) {
-//             name_vale_array.push(JSON.parse(body)[x].name);
-//         };
-//         console.log(name_vale_array);
-//     });
-// };
-
-// function sayHi(x) {
-//     console.log(x);
-// };
-// sayHi(req(suggestion_url));
-
-
-//Callback --Listing
-function list(a, b) {
-    const r1 = [];
-    const r2 = [];
-    for (let x in a) {
-        r1.push(a[x]);
-    };
-    for (let x in b) {
-        r2.push(b[x]);
-    };
-    return [r1, r2]
-};
-
-
-
-
-
-//GET Resquest Handling
-router.get("/get_transcript", (req, res) => {
-    res.send("transcript")
-});
-
-router.get("/get_suggestion", (req, res) => {
-    res.send("suggestion");
-});
-
-//Export the Module
-module.exports = router;
