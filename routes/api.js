@@ -72,6 +72,10 @@ result3.on("up3", () => {
     // console.log(result3.data.length);
 });
 
+//Cleaning Func
+function cf(x) {};
+
+//Final Matching
 result2.on("up2", () => { //Call the Transcript EventEmitter
     result.on("up", () => { //Call the Suggestion EventEmitter
         let splited = []; //Initialize the Array for Splited Transcript
@@ -87,18 +91,9 @@ result2.on("up2", () => { //Call the Transcript EventEmitter
                 };
             };
         };
-
-        function removeDuplicateUsingFilter(arr) { //Sanitization Function -> Remove Duplicates
-            let unique_array = arr.filter(function (elem, index, self) {
-                return index == self.indexOf(elem);
-            });
-            return unique_array
-        }
-        const as = (removeDuplicateUsingFilter(arry_final_1)).length;
+        console.log(arry_final_1);
     });
-
 });
-
 
 //GET Resquest Handling
 router.get("/get_transcript", (req, res) => {
