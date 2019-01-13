@@ -45,11 +45,11 @@ request(encodeURI(transcript_url), (err, response, body) => {
 
 //API Call -> Time
 const result3 = new EventEmitter();
-request(encodeURI(suggestion_url), (err, response, body) => {
+request(encodeURI(transcript_url), (err, response, body) => {
     const stage3 = JSON.parse(body);
     const time_val_array = [];
     for (let x in stage3) {
-        time_val_array.push(`${stage3[x].duration}`);
+        time_val_array.push(`${stage3[x].start}`);
     };
     result3.data = time_val_array;
     result3.emit("up3");
@@ -67,34 +67,34 @@ function spliter(a) {
     return arr2
 };
 
+//Time Output
+result3.on("up3", () => {
+    // console.log(result3.data.length);
+});
 
-result2.on("up2", () => {
-    result.on("up", () => {
-        let splited = [];
-        splited = spliter(result2.data);
-        let arry_final_1 = [];
-        let arry_final_2 = [];
-        for (let index = 0; index < splited.length; index++) {
-            for (let index2 = 0; index2 < result.data.length; index2++) {
-                if (splited[index] == result.data[index2]) {
-                    arry_final_1.push(result.data[index2]);
-                    arry_final_2.push(splited[index]);
+result2.on("up2", () => { //Call the Transcript EventEmitter
+    result.on("up", () => { //Call the Suggestion EventEmitter
+        let splited = []; //Initialize the Array for Splited Transcript
+        splited = spliter(result2.data); //Passd the Splited Data into the Array
+        // console.log(result2.data.length); //Programming Trace
+        let arry_final_1 = []; //Initialize the Array for the Final Matching-Short
+        let arry_final_2 = []; //Initialize the Array for the Final Matching-Long
+        for (let index = 0; index < splited.length; index++) { //Iterate Through the Longer Array - Transcript
+            for (let index2 = 0; index2 < result.data.length; index2++) { //Iterate Through the Shorter Array - Suggestion
+                if (splited[index] == result.data[index2]) { //Find the Matching Value 
+                    arry_final_1.push(result.data[index2]); //Push the Matching Value into the Final Array
+                    arry_final_2.push(splited[index]); //Push the Matching Value into the Final Array
                 };
             };
         };
-        // console.log(arry_final_1.length);
-        // console.log(arry_final_2.length);
-        // console.log((new Set(arry_final_1)));
 
-        function removeDuplicateUsingFilter(arr) {
+        function removeDuplicateUsingFilter(arr) { //Sanitization Function -> Remove Duplicates
             let unique_array = arr.filter(function (elem, index, self) {
                 return index == self.indexOf(elem);
             });
             return unique_array
         }
-
-        const as = (removeDuplicateUsingFilter(arry_final_1)).length
-        console.log(as);
+        const as = (removeDuplicateUsingFilter(arry_final_1)).length;
     });
 
 });
