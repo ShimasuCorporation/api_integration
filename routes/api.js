@@ -67,17 +67,23 @@ function spliter(a) {
     return arr2
 };
 
-//Time Output
-result3.on("up3", () => {
-    // console.log(result3.data.length);
-});
+
 
 //Cleaning Func
-function cf(x) {};
+function cf(x) {
+    let cd = x.filter((a, b, c) => {
+        return b == c.indexOf(a)
+    });
+    return cd;
+};
+
+
 
 //Final Matching
+
 result2.on("up2", () => { //Call the Transcript EventEmitter
-    result.on("up", () => { //Call the Suggestion EventEmitter
+    // result3.on("up3", () => {
+    result.on("up", () => { //Call the Suggestion EventEmitter  
         let splited = []; //Initialize the Array for Splited Transcript
         splited = spliter(result2.data); //Passd the Splited Data into the Array
         // console.log(result2.data.length); //Programming Trace
@@ -88,12 +94,30 @@ result2.on("up2", () => { //Call the Transcript EventEmitter
                 if (splited[index] == result.data[index2]) { //Find the Matching Value 
                     arry_final_1.push(result.data[index2]); //Push the Matching Value into the Final Array
                     arry_final_2.push(splited[index]); //Push the Matching Value into the Final Array
+
                 };
             };
+
         };
-        console.log(arry_final_1);
+        result3.on("up3", () => {});
+
+        const tr2 = result3.data; //Time Data
+        let tr = cf(arry_final_1); //Transcript Data
+
+        //Time Match Func
+        tr.filter((a, b, c) => {
+            // console.log("first_step:" + " " + a, b, c, c.indexOf(a), b == c.indexOf(a));
+            const rev_2 = b == c.indexOf(a) //arry1's repeated value assessment
+            if (rev_2 == true) { //If not repeated 
+                const first_arry_index = b; //The first array's index corresbonding to the repeated values 
+                const fn = tr2[first_arry_index] //2nd array's value corresbonding to 1st array's index corresbonding to the its repeated values
+                console.log(fn, tr[b]); //Suggestion and Time Match
+            };
+        })
     });
+
 });
+
 
 //GET Resquest Handling
 router.get("/get_transcript", (req, res) => {
@@ -106,6 +130,8 @@ router.get("/get_suggestion", (req, res) => {
 
 //Export the Module
 module.exports = router;
+
+
 
 
 
@@ -276,3 +302,22 @@ module.exports = router;
 //     ['In that small print we can read, “Subject\nto change without notice.'],
 //     ['Not applicable outside of warranty.”']
 // ];
+
+
+//Time Match Func
+// function clear_num_2(x, y) {
+//     x.filter((a, b, c) => {
+//         // console.log("first_step:" + " " + a, b, c, c.indexOf(a), b == c.indexOf(a));
+//         const rev_2 = b == c.indexOf(a) //arry1's repeated value assessment
+//         if (rev_2 == true) { //If not repeated 
+//             const first_arry_index = b; //The first array's index corresbonding to the repeated values 
+//             const fn = y[first_arry_index] //2nd array's value corresbonding to 1st array's index corresbonding to the its repeated values
+//             console.log(fn);
+//         };
+//     })
+// };
+
+//Time Output
+// result3.on("up3", () => {
+//     console.log(result3.data);
+// });
