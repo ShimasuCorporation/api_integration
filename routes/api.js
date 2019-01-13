@@ -3,12 +3,13 @@ const express = require("express");
 const request = require("request");
 const router = express.Router();
 const bodyParser = require("body-parser");
+const path = require("path");
+
 EventEmitter = require("events").EventEmitter;
 
 //Set Global Vars.
 const transcript_url = "https://shimasu.herokuapp.com/api/get_transcript/k3vFX0YrkMY";
 const suggestion_url = "https://shimasu.herokuapp.com/api/get_suggestions/k3vFX0YrkMY";
-
 
 //Initialize URL Parser
 app.use(
@@ -16,6 +17,9 @@ app.use(
         extended: true
     })
 );
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 ////EventEmitter
 
@@ -79,8 +83,8 @@ function cf(x) {
 
 
 
-//Final Matching
-
+// //Final Matching
+const blow_ass = new EventEmitter();
 result2.on("up2", () => { //Call the Transcript EventEmitter
     // result3.on("up3", () => {
     result.on("up", () => { //Call the Suggestion EventEmitter  
@@ -111,22 +115,33 @@ result2.on("up2", () => { //Call the Transcript EventEmitter
             if (rev_2 == true) { //If not repeated 
                 const first_arry_index = b; //The first array's index corresbonding to the repeated values 
                 const fn = tr2[first_arry_index] //2nd array's value corresbonding to 1st array's index corresbonding to the its repeated values
-                console.log(fn, tr[b]); //Suggestion and Time Match
+                // console.log(fn, tr[b]); //Suggestion and Time Match
+                blow_ass.data = [fn, tr[b]];
+                // console.log(blow_ass.data)
+                blow_ass.emit("blow_ass")
+
             };
         })
     });
 
 });
+// const fs = require('fs');
+// blow_ass.on("blow_ass", () => {
+//     fs.writeFile("../test", blow_ass.data, function (err) {
+//         if (err) {
+//             return console.log(err);
+//         }
+//         console.log("The file was saved!");
+//     });
+// });
 
 
 //GET Resquest Handling
-router.get("/get_transcript", (req, res) => {
-    res.send("transcript")
-});
-
-router.get("/get_suggestion", (req, res) => {
-    res.send("suggestion");
-});
+// router.get("/get", (req, res) => {
+//     blow_ass.on("blow_ass", () => {
+//         console.log(blow_ass.data);
+//     });
+// });
 
 //Export the Module
 module.exports = router;

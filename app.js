@@ -51,7 +51,7 @@ function clear_num(x, y) {
         if (rev == false) { //If repeated 
             const first_arry_index = b; //The first array's index corresbonding to the repeated values 
             const fn = y[first_arry_index] //2nd array's value corresbonding to 1st array's index corresbonding to the its repeated values
-            console.log(fn);
+            // console.log(fn);
         };
     })
 };
@@ -71,7 +71,7 @@ function clear_num_2(x, y) {
 
 // console.log(clear(arr1));
 // clear_num(arr1, arr2);
-clear_num_2(arr1, arr2);
+// clear_num_2(arr1, arr2);
 
 // console.log(arr1.filter((a, b, c, ) => {
 //     // console.log(b == c.indexOf(a))
