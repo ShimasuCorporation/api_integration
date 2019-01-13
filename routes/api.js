@@ -23,7 +23,7 @@ app.set("views", path.join(__dirname, "views"));
 
 ////EventEmitter
 
-//API Call -> Suggestion
+//API Call -> Suggestion_Get_name
 const result = new EventEmitter();
 request(encodeURI(suggestion_url), (err, response, body) => {
     const stage1 = JSON.parse(body);
@@ -35,7 +35,7 @@ request(encodeURI(suggestion_url), (err, response, body) => {
     result.emit("up");
 });
 
-//API Call -> Transcript
+//API Call -> Get Transcript_Text
 const result2 = new EventEmitter();
 request(encodeURI(transcript_url), (err, response, body) => {
     const stage2 = JSON.parse(body);
@@ -47,7 +47,7 @@ request(encodeURI(transcript_url), (err, response, body) => {
     result2.emit("up2");
 });
 
-//API Call -> Time
+//API Call -> Get Start Time
 const result3 = new EventEmitter();
 request(encodeURI(transcript_url), (err, response, body) => {
     const stage3 = JSON.parse(body);
@@ -58,7 +58,6 @@ request(encodeURI(transcript_url), (err, response, body) => {
     result3.data = time_val_array;
     result3.emit("up3");
 });
-
 
 //Spliting Function
 function spliter(a) {
@@ -71,17 +70,13 @@ function spliter(a) {
     return arr2
 };
 
-
-
-//Cleaning Func
+//Cleaning Function (Remove Repeated Val.)
 function cf(x) {
     let cd = x.filter((a, b, c) => {
         return b == c.indexOf(a)
     });
     return cd;
 };
-
-
 
 // //Final Matching
 const blow_ass = new EventEmitter();
@@ -92,18 +87,18 @@ result2.on("up2", () => { //Call the Transcript EventEmitter
         splited = spliter(result2.data); //Passd the Splited Data into the Array
         // console.log(result2.data.length); //Programming Trace
         let arry_final_1 = []; //Initialize the Array for the Final Matching-Short
-        let arry_final_2 = []; //Initialize the Array for the Final Matching-Long
+        // let arry_final_2 = []; //Initialize the Array for the Final Matching-Long
         for (let index = 0; index < splited.length; index++) { //Iterate Through the Longer Array - Transcript
             for (let index2 = 0; index2 < result.data.length; index2++) { //Iterate Through the Shorter Array - Suggestion
                 if (splited[index] == result.data[index2]) { //Find the Matching Value 
                     arry_final_1.push(result.data[index2]); //Push the Matching Value into the Final Array
-                    arry_final_2.push(splited[index]); //Push the Matching Value into the Final Array
+                    // arry_final_2.push(splited[index]); //Push the Matching Value into the Final Array
 
                 };
             };
 
         };
-        result3.on("up3", () => {});
+        result3.on("up3", () => {}); //Call the Time EventEmitter
 
         const tr2 = result3.data; //Time Data
         let tr = cf(arry_final_1); //Transcript Data
@@ -125,6 +120,7 @@ result2.on("up2", () => { //Call the Transcript EventEmitter
     });
 
 });
+
 // const fs = require('fs');
 // blow_ass.on("blow_ass", () => {
 //     fs.writeFile("../test", blow_ass.data, function (err) {
@@ -145,11 +141,6 @@ result2.on("up2", () => { //Call the Transcript EventEmitter
 
 //Export the Module
 module.exports = router;
-
-
-
-
-
 
 //Callback Demo
 // function req(x) {
